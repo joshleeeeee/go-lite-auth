@@ -6,7 +6,7 @@ mysql:
   host: localhost
   port: 3306
   username: root
-  password: your_password
+  password: CHANGE_ME_IN_PRODUCTION
   database: lite_auth
   charset: utf8mb4
   max_idle_conns: 10
@@ -20,7 +20,7 @@ redis:
   pool_size: 10
 
 jwt:
-  secret: your-super-secret-key-change-in-production
+  secret: CHANGE_ME_IN_PRODUCTION
   access_token_expire: 3600      # 1 hour in seconds
   refresh_token_expire: 604800   # 7 days in seconds
   issuer: lite-auth

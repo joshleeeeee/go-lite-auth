@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/spf13/viper"
@@ -73,13 +74,23 @@ func (c *SessionConfig) ExpireDuration() time.Duration {
 
 var GlobalConfig *Config
 
-// Load reads configuration from file
+// Load reads configuration from file, with optional local override
 func Load(configPath string) (*Config, error) {
 	viper.SetConfigFile(configPath)
 	viper.SetConfigType("yaml")
 
+	// Read default config
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
+	}
+
+	// Try to read local config override if exists
+	localConfigPath := "config/config.local.yaml"
+	if _, err := os.Stat(localConfigPath); err == nil {
+		viper.SetConfigFile(localConfigPath)
+		if err := viper.MergeInConfig(); err != nil {
+			return nil, fmt.Errorf("failed to merge local config: %w", err)
+		}
 	}
 
 	var cfg Config

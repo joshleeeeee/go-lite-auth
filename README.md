@@ -32,6 +32,9 @@ lite-auth/
 │   └── service/              # Business logic layer
 ├── pkg/
 │   └── jwt/                  # JWT utilities
+├── test/
+│   └── api/
+│       └── auth.http         # API test scripts
 ├── go.mod
 └── README.md
 ```

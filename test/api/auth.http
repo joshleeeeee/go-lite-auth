@@ -1,0 +1,118 @@
+@baseUrl = http://localhost:8080/api
+@contentType = application/json
+
+### ==========================================
+### 1. HEALTH & SYSTEM
+### ==========================================
+
+### System Health Check
+GET http://localhost:8080/health
+
+### ==========================================
+### 2. REGISTRATION SCENARIOS
+### ==========================================
+
+### [Success] Register a new user
+# @name registerSuccess
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "username": "user_{{$randomInt 100 999}}",
+    "password": "Password123",
+    "email": "user_{{$randomInt 100 999}}@example.com"
+}
+
+### [Error] Register with existing username
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "Password123",
+    "email": "another@example.com"
+}
+
+### [Error] Register with invalid email
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+    "username": "invalid_email",
+    "password": "Password123",
+    "email": "not-an-email"
+}
+
+### ==========================================
+### 3. LOGIN SCENARIOS
+### ==========================================
+
+### [Success] Login with correct credentials
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "Password123"
+}
+
+### [Error] Login with wrong password
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "wrongpassword"
+}
+
+### [Error] Login with non-existent user
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+    "username": "nobody_here",
+    "password": "Password123"
+}
+
+### ==========================================
+### 4. PROTECTED RESOURCE SCENARIOS
+### ==========================================
+
+# Variables from successful login
+@accessToken = {{login.response.body.data.token.access_token}}
+@refreshToken = {{login.response.body.data.token.refresh_token}}
+
+### [Success] Get current user profile
+GET {{baseUrl}}/user/info
+Authorization: Bearer {{accessToken}}
+
+### [Error] Access without Token
+GET {{baseUrl}}/user/info
+
+### [Error] Access with invalid/expired Token
+GET {{baseUrl}}/user/info
+Authorization: Bearer static_invalid_token
+
+### ==========================================
+### 5. TOKEN MANAGEMENT
+### ==========================================
+
+### Validate Token (used by other apps in SSO)
+GET {{baseUrl}}/auth/validate?token={{accessToken}}
+
+### [Success] Refresh Access Token
+POST {{baseUrl}}/auth/refresh
+Content-Type: {{contentType}}
+
+{
+    "refresh_token": "{{refreshToken}}"
+}
+
+### [Success] Logout (Invalidates token via Redis blacklist)
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{accessToken}}
+
+### [Verify] Access after Logout (Should fail)
+GET {{baseUrl}}/user/info
+Authorization: Bearer {{accessToken}}
