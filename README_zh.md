@@ -11,7 +11,7 @@
 ## 技术栈
 
 - **Web 框架**: Gin
-- **数据库**: MySQL 8 + GORM  
+- **数据库**: [SQLite](https://sqlite.org/) (默认) / [MySQL 8](https://www.mysql.com/) / [PostgreSQL](https://www.postgresql.org/) + [GORM](https://gorm.io/)
 - **缓存**: Redis
 - **认证**: JWT (Access Token + Refresh Token)
 - **配置**: Viper
@@ -27,7 +27,7 @@ lite-auth/
 │   └── config.yaml           # 配置文件
 ├── internal/
 │   ├── config/               # 配置加载
-│   ├── database/             # MySQL & Redis 初始化
+│   ├── database/             # 数据库初始化 (SQLite, MySQL, Postgres) 和 Redis
 │   ├── handler/              # HTTP 处理器
 │   ├── middleware/           # 中间件 (JWT验证, CORS)
 │   ├── model/                # 数据模型
@@ -46,18 +46,41 @@ lite-auth/
 
 确保已安装:
 - Go 1.21+
-- MySQL 8.0+
-- Redis 6.0+
+- Redis 6.0+ (用于会话管理)
+- *可选*: MySQL 或 PostgreSQL (如果你不想使用默认的 SQLite)
 
-### 2. 创建数据库
+### 2. 配置并运行
 
-```sql
-CREATE DATABASE lite_auth CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
+项目默认使用 **SQLite**，意味着你不需要预先配置数据库即可快速启动。
 
-### 3. 修改配置
+1.  **克隆仓库:**
+    ```bash
+    git clone https://github.com/joshleeeeee/go-lite-auth.git
+    cd go-lite-auth
+    ```
 
-编辑 `config/config.yaml`，配置你的 MySQL 和 Redis 连接信息。
+2.  **同步依赖:**
+    ```bash
+    go mod tidy
+    ```
+
+3.  **启动应用:**
+    ```bash
+    go run cmd/server/main.go
+    ```
+
+应用会自动创建 `data/lite_auth.db` 文件。
+
+### 3. (可选) 切换至 MySQL/Postgres
+
+如果你想使用其他数据库，请编辑 `config/config.yaml`:
+
+1.  将 `database.driver` 修改为 `mysql` 或 `postgres`。
+2.  更新对应部分 (`mysql` 或 `postgres`) 的连接信息。
+3.  如果使用 MySQL/Postgres，请手动创建数据库:
+    ```sql
+    CREATE DATABASE lite_auth CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    ```
 
 ### 4. 安装依赖
 

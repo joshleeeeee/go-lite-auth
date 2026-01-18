@@ -2,6 +2,22 @@ server:
   port: 8080
   mode: debug  # debug, release, test
 
+database:
+  driver: sqlite  # sqlite, mysql, or postgres
+
+sqlite:
+  path: "data/lite_auth.db"
+
+postgres:
+  host: localhost
+  port: 5432
+  username: postgres
+  password: CHANGE_ME_IN_PRODUCTION
+  database: lite_auth
+  sslmode: disable
+  max_idle_conns: 10
+  max_open_conns: 100
+
 mysql:
   host: localhost
   port: 3306

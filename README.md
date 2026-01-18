@@ -11,7 +11,7 @@ A lightweight Single Sign-On (SSO) system built with Go.
 ## Tech Stack
 
 - **Web Framework**: [Gin](https://github.com/gin-gonic/gin)
-- **Database**: [MySQL 8](https://www.mysql.com/) + [GORM](https://gorm.io/)
+- **Database**: [SQLite](https://sqlite.org/) (Default) / [MySQL 8](https://www.mysql.com/) / [PostgreSQL](https://www.postgresql.org/) + [GORM](https://gorm.io/)
 - **Cache**: [Redis](https://redis.io/)
 - **Authentication**: JWT (Access Token + Refresh Token)
 - **Configuration**: [Viper](https://github.com/spf13/viper)
@@ -27,7 +27,7 @@ lite-auth/
 │   └── config.yaml           # Configuration file
 ├── internal/
 │   ├── config/               # Configuration loading
-│   ├── database/             # MySQL & Redis initialization
+│   ├── database/             # Database initialization (SQLite, MySQL, Postgres) & Redis
 │   ├── handler/              # HTTP handlers (Controllers)
 │   ├── middleware/           # Middleware (JWT, CORS, etc.)
 │   ├── model/                # Data models

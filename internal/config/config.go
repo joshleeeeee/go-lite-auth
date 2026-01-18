@@ -9,11 +9,38 @@ import (
 )
 
 type Config struct {
-	Server  ServerConfig  `mapstructure:"server"`
-	MySQL   MySQLConfig   `mapstructure:"mysql"`
-	Redis   RedisConfig   `mapstructure:"redis"`
-	JWT     JWTConfig     `mapstructure:"jwt"`
-	Session SessionConfig `mapstructure:"session"`
+	Server   ServerConfig   `mapstructure:"server"`
+	Database DatabaseConfig `mapstructure:"database"`
+	MySQL    MySQLConfig    `mapstructure:"mysql"`
+	SQLite   SQLiteConfig   `mapstructure:"sqlite"`
+	Postgres PostgresConfig `mapstructure:"postgres"`
+	Redis    RedisConfig    `mapstructure:"redis"`
+	JWT      JWTConfig      `mapstructure:"jwt"`
+	Session  SessionConfig  `mapstructure:"session"`
+}
+
+type DatabaseConfig struct {
+	Driver string `mapstructure:"driver"`
+}
+
+type SQLiteConfig struct {
+	Path string `mapstructure:"path"`
+}
+
+type PostgresConfig struct {
+	Host         string `mapstructure:"host"`
+	Port         int    `mapstructure:"port"`
+	Username     string `mapstructure:"username"`
+	Password     string `mapstructure:"password"`
+	Database     string `mapstructure:"database"`
+	SSLMode      string `mapstructure:"sslmode"`
+	MaxIdleConns int    `mapstructure:"max_idle_conns"`
+	MaxOpenConns int    `mapstructure:"max_open_conns"`
+}
+
+func (c *PostgresConfig) DSN() string {
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
+		c.Host, c.Port, c.Username, c.Password, c.Database, c.SSLMode)
 }
 
 type ServerConfig struct {

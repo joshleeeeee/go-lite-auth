@@ -25,9 +25,9 @@ func main() {
 	}
 	log.Printf("Configuration loaded from %s", *configPath)
 
-	// Initialize MySQL
-	if err := database.InitMySQL(&cfg.MySQL); err != nil {
-		log.Fatalf("Failed to initialize MySQL: %v", err)
+	// Initialize Database
+	if err := database.InitDB(cfg); err != nil {
+		log.Fatalf("Failed to initialize database: %v", err)
 	}
 	defer database.Close()
 

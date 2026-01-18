@@ -28,3 +28,7 @@ vendor/
 
 # Temp
 tmp/
+
+# Database
+*.db
+/data/
