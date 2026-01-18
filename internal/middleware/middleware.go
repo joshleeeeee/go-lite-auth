@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joshleeeeee/LiteSSO/internal/database"
-	"github.com/joshleeeeee/LiteSSO/pkg/jwt"
+	"github.com/joshleeeeee/go-lite-auth/internal/database"
+	"github.com/joshleeeeee/go-lite-auth/pkg/jwt"
 )
 
 // AuthMiddleware validates JWT token and sets user context

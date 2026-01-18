@@ -1,8 +1,12 @@
-# Lite-Auth
+# go-lite-auth
 
-A lightweight, educational Single Sign-On (SSO) system built with Go.
+[![Go CI](https://github.com/joshleeeeee/go-lite-auth/actions/workflows/go.yml/badge.svg)](https://github.com/joshleeeeee/go-lite-auth/actions/workflows/go.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/joshleeeeee/go-lite-auth)](https://golang.org/)
 
-[中文文档 (Chinese)](README_zh.md)
+A lightweight Single Sign-On (SSO) system built with Go.
+
+[中文文档 (Chinese)](README_zh.md) | [Contributing](CONTRIBUTING.md) | [Changelog](CHANGELOG.md)
 
 ## Tech Stack
 
@@ -128,6 +132,10 @@ curl http://localhost:8080/api/user/info \
 - [ ] Frontend login page
 - [ ] Client application management
 - [ ] Admin dashboard
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 

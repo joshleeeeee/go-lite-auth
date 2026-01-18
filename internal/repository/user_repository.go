@@ -3,8 +3,8 @@ package repository
 import (
 	"errors"
 
-	"github.com/joshleeeeee/LiteSSO/internal/database"
-	"github.com/joshleeeeee/LiteSSO/internal/model"
+	"github.com/joshleeeeee/go-lite-auth/internal/database"
+	"github.com/joshleeeeee/go-lite-auth/internal/model"
 	"gorm.io/gorm"
 )
 

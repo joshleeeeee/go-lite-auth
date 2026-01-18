@@ -1,6 +1,12 @@
-# Lite-Auth
+# go-lite-auth
 
-轻量级教学级 SSO (单点登录) 系统，使用 Go 语言构建。
+[![Go CI](https://github.com/joshleeeeee/go-lite-auth/actions/workflows/go.yml/badge.svg)](https://github.com/joshleeeeee/go-lite-auth/actions/workflows/go.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/joshleeeeee/go-lite-auth)](https://golang.org/)
+
+轻量级 SSO (单点登录) 系统，使用 Go 语言构建。
+
+[English README](README.md) | [贡献指南](CONTRIBUTING.md) | [更新日志](CHANGELOG.md)
 
 ## 技术栈
 
@@ -124,6 +130,10 @@ curl http://localhost:8080/api/user/info \
 - [ ] 客户端应用管理
 - [ ] 用户管理后台
 
-## License
+## 参与贡献
+
+欢迎任何形式的贡献！请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解详细指南。
+
+## 开源协议
 
 MIT

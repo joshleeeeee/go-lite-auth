@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joshleeeeee/LiteSSO/internal/service"
-	"github.com/joshleeeeee/LiteSSO/pkg/jwt"
+	"github.com/joshleeeeee/go-lite-auth/internal/service"
+	"github.com/joshleeeeee/go-lite-auth/pkg/jwt"
 )
 
 type AuthHandler struct {

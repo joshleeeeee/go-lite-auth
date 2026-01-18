@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/joshleeeeee/LiteSSO/internal/config"
-	"github.com/joshleeeeee/LiteSSO/internal/model"
+	"github.com/joshleeeeee/go-lite-auth/internal/config"
+	"github.com/joshleeeeee/go-lite-auth/internal/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

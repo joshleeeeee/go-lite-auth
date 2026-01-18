@@ -1,4 +1,4 @@
-module github.com/joshleeeeee/LiteSSO
+module github.com/joshleeeeee/go-lite-auth
 
 go 1.21
 

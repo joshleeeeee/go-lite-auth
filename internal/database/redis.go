@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/joshleeeeee/LiteSSO/internal/config"
+	"github.com/joshleeeeee/go-lite-auth/internal/config"
 	"github.com/redis/go-redis/v9"
 )
 

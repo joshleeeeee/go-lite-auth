@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/joshleeeeee/LiteSSO/internal/handler"
-	"github.com/joshleeeeee/LiteSSO/internal/middleware"
+	"github.com/joshleeeeee/go-lite-auth/internal/handler"
+	"github.com/joshleeeeee/go-lite-auth/internal/middleware"
 )
 
 // Setup initializes and returns the Gin router

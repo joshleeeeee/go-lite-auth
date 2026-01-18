@@ -6,7 +6,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"github.com/joshleeeeee/LiteSSO/internal/config"
+	"github.com/joshleeeeee/go-lite-auth/internal/config"
 )
 
 var (

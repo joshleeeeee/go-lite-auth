@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/joshleeeeee/LiteSSO/internal/config"
-	"github.com/joshleeeeee/LiteSSO/internal/database"
-	"github.com/joshleeeeee/LiteSSO/internal/model"
-	"github.com/joshleeeeee/LiteSSO/internal/repository"
-	"github.com/joshleeeeee/LiteSSO/pkg/jwt"
+	"github.com/joshleeeeee/go-lite-auth/internal/config"
+	"github.com/joshleeeeee/go-lite-auth/internal/database"
+	"github.com/joshleeeeee/go-lite-auth/internal/model"
+	"github.com/joshleeeeee/go-lite-auth/internal/repository"
+	"github.com/joshleeeeee/go-lite-auth/pkg/jwt"
 	"golang.org/x/crypto/bcrypt"
 )
 

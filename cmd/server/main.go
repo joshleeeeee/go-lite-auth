@@ -8,9 +8,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/joshleeeeee/LiteSSO/internal/config"
-	"github.com/joshleeeeee/LiteSSO/internal/database"
-	"github.com/joshleeeeee/LiteSSO/internal/router"
+	"github.com/joshleeeeee/go-lite-auth/internal/config"
+	"github.com/joshleeeeee/go-lite-auth/internal/database"
+	"github.com/joshleeeeee/go-lite-auth/internal/router"
 )
 
 func main() {
