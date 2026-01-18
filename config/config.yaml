@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  mode: debug  # debug, release, test
+
+mysql:
+  host: localhost
+  port: 3306
+  username: root
+  password: your_password
+  database: lite_auth
+  charset: utf8mb4
+  max_idle_conns: 10
+  max_open_conns: 100
+
+redis:
+  host: localhost
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 10
+
+jwt:
+  secret: your-super-secret-key-change-in-production
+  access_token_expire: 3600      # 1 hour in seconds
+  refresh_token_expire: 604800   # 7 days in seconds
+  issuer: lite-auth
+
+session:
+  expire: 86400  # 24 hours in seconds
