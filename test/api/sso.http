@@ -1,0 +1,97 @@
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+### ==========================================
+### SSO TICKET MECHANISM (CAS STYLE)
+### ==========================================
+
+### ==========================================
+### 1. SSO LOGIN FLOW
+### ==========================================
+
+### [Info] Check SSO login status (GET)
+GET {{baseUrl}}/sso/login?service=https://app.example.com/callback
+
+
+### [Success] SSO Login - Get Service Ticket
+# @name ssoLogin
+POST {{baseUrl}}/sso/login
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "Password123",
+    "service": "https://app.example.com/callback"
+}
+
+### [Error] SSO Login - Missing service parameter
+POST {{baseUrl}}/sso/login
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "Password123"
+}
+
+### [Error] SSO Login - Wrong password
+POST {{baseUrl}}/sso/login
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "wrongpassword",
+    "service": "https://app.example.com/callback"
+}
+
+### ==========================================
+### 2. TICKET VALIDATION
+### ==========================================
+
+# Save the ticket from successful login
+@serviceTicket = {{ssoLogin.response.body.data.ticket}}
+@service = https://app.example.com/callback
+
+### [Success] Validate Service Ticket (First use - should succeed)
+# @name validateTicket
+GET {{baseUrl}}/sso/validate?ticket={{serviceTicket}}&service={{service}}
+
+### [Error] Validate Same Ticket Again (Second use - should FAIL, one-time use)
+GET {{baseUrl}}/sso/validate?ticket={{serviceTicket}}&service={{service}}
+
+### [Error] Validate with wrong service URL
+GET {{baseUrl}}/sso/validate?ticket={{serviceTicket}}&service=https://evil.com/steal
+
+### [Error] Validate non-existent ticket
+GET {{baseUrl}}/sso/validate?ticket=ST-invalid-ticket-12345&service={{service}}
+
+### [Error] Validate without ticket parameter
+GET {{baseUrl}}/sso/validate?service={{service}}
+
+### [Error] Validate without service parameter
+GET {{baseUrl}}/sso/validate?ticket={{serviceTicket}}
+
+### ==========================================
+### 3. SSO LOGOUT
+### ==========================================
+
+### SSO Logout
+GET {{baseUrl}}/sso/logout?service=https://app.example.com
+
+### ==========================================
+### 4. COMPLETE FLOW TEST
+### ==========================================
+
+### Step 1: Login and get new ticket
+# @name freshLogin
+POST {{baseUrl}}/sso/login
+Content-Type: {{contentType}}
+
+{
+    "username": "tester",
+    "password": "Password123",
+    "service": "https://myapp.example.com/auth/callback"
+}
+
+### Step 2: Validate the fresh ticket (use the redirect URL)
+@freshTicket = {{freshLogin.response.body.data.ticket}}
+GET {{baseUrl}}/sso/validate?ticket={{freshTicket}}&service=https://myapp.example.com/auth/callback

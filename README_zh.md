@@ -114,7 +114,18 @@ go run cmd/server/main.go
 |------|------|------|------|
 | GET | `/api/user/info` | 获取当前用户信息 | ✅ |
 
+### SSO 单点登录 (CAS 风格)
+
+| 方法 | 路径 | 说明 | 认证 |
+|------|------|------|------|
+| GET | `/sso/login?service=xxx` | SSO 登录入口 | ❌ |
+| POST | `/sso/login` | 提交登录，返回 Service Ticket | ❌ |
+| GET | `/sso/validate?ticket=xxx&service=xxx` | 验证 Service Ticket | ❌ |
+| GET | `/sso/logout` | SSO 登出 | ❌ |
+
 ### 请求示例
+
+> 更多示例（包括 SSO 流程）请参阅 [`test/api/`](test/api/) 目录下的 HTTP 测试文件。
 
 **注册**
 ```bash
@@ -147,7 +158,7 @@ curl http://localhost:8080/api/user/info \
 
 ## 后续扩展
 
-- [ ] SSO Ticket 机制 (CAS 风格)
+- [x] SSO Ticket 机制 (CAS 风格)
 - [ ] OAuth 2.0 授权码模式
 - [ ] 前端登录页面
 - [ ] 客户端应用管理

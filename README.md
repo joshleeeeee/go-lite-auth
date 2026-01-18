@@ -117,7 +117,18 @@ The server will start at http://localhost:8080.
 |--------|------|-------------|---------------|
 | GET | `/api/user/info` | Get current user info | ✅ |
 
+### SSO Single Sign-On (CAS-style)
+
+| Method | Path | Description | Auth Required |
+|--------|------|-------------|---------------|
+| GET | `/sso/login?service=xxx` | SSO login entry | ❌ |
+| POST | `/sso/login` | Submit login, returns Service Ticket | ❌ |
+| GET | `/sso/validate?ticket=xxx&service=xxx` | Validate Service Ticket | ❌ |
+| GET | `/sso/logout` | SSO logout | ❌ |
+
 ## Sample Requests
+
+> For more comprehensive examples including SSO flows, see the HTTP test files in [`test/api/`](test/api/).
 
 ### Register
 ```bash
@@ -150,7 +161,7 @@ curl http://localhost:8080/api/user/info \
 
 ## Roadmap
 
-- [ ] SSO Ticket mechanism (CAS-style)
+- [x] SSO Ticket mechanism (CAS-style)
 - [ ] OAuth 2.0 Authorization Code Flow
 - [ ] Frontend login page
 - [ ] Client application management

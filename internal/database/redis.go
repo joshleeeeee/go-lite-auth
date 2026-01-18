@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"time"
@@ -9,6 +10,13 @@ import (
 	"github.com/joshleeeeee/go-lite-auth/internal/config"
 	"github.com/redis/go-redis/v9"
 )
+
+// TicketData stores ticket-related user and service information
+type TicketData struct {
+	UserID   uint   `json:"user_id"`
+	Username string `json:"username"`
+	Service  string `json:"service"`
+}
 
 var RDB *redis.Client
 
@@ -69,15 +77,31 @@ func IsBlacklisted(ctx context.Context, tokenID string) (bool, error) {
 	return result > 0, nil
 }
 
-// SSO Ticket operations (one-time use)
+// SSO Ticket operations (one-time use with service validation)
 
-func SetTicket(ctx context.Context, ticketID string, userID uint, expire time.Duration) error {
-	return RDB.Set(ctx, PrefixTicket+ticketID, userID, expire).Err()
+// SetTicketWithService stores a ticket with associated user and service data
+func SetTicketWithService(ctx context.Context, ticketID string, data *TicketData, expire time.Duration) error {
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		return fmt.Errorf("failed to marshal ticket data: %w", err)
+	}
+	return RDB.Set(ctx, PrefixTicket+ticketID, jsonData, expire).Err()
 }
 
-func GetAndDeleteTicket(ctx context.Context, ticketID string) (string, error) {
+// GetAndDeleteTicketData atomically retrieves and deletes ticket data (one-time use)
+func GetAndDeleteTicketData(ctx context.Context, ticketID string) (*TicketData, error) {
 	// Use GetDel for atomic get and delete
-	return RDB.GetDel(ctx, PrefixTicket+ticketID).Result()
+	result, err := RDB.GetDel(ctx, PrefixTicket+ticketID).Result()
+	if err != nil {
+		return nil, err
+	}
+
+	var data TicketData
+	if err := json.Unmarshal([]byte(result), &data); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal ticket data: %w", err)
+	}
+
+	return &data, nil
 }
 
 // Login rate limiting

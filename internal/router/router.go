@@ -46,5 +46,15 @@ func Setup(mode string) *gin.Engine {
 		}
 	}
 
+	// SSO routes (CAS-style)
+	ssoHandler := handler.NewSSOHandler()
+	sso := r.Group("/sso")
+	{
+		sso.GET("/login", ssoHandler.Login)
+		sso.POST("/login", ssoHandler.LoginSubmit)
+		sso.GET("/validate", ssoHandler.ValidateTicket)
+		sso.GET("/logout", ssoHandler.Logout)
+	}
+
 	return r
 }
